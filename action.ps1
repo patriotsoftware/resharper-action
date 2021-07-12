@@ -2,16 +2,12 @@ dotnet tool install -g Jetbrains.Resharper.GlobalTools
 
 #Add check for correct solution name
 New-Item -Path 'inspections.xml' -ItemType File
-Write-Host "${INPUTS_SEVERITY_LEVEL}"
-Write-Host $INPUTS_SEVERITY_LEVEL
-Write-Host "$INPUTS_SEVERITY_LEVEL"
-Write-Host  "token $($INPUTS_SEVERITY_LEVEL)"
-Write-Host $env:INPUTS_SEVERITY_LEVEL
-jb inspectcode ${INPUTS_SOLUTION_NAME} --exclude="**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js" -s=${INPUTS_SEVERITY_LEVEL} -o="inspections.xml"
+
+jb inspectcode $env:INPUTS_SOLUTION_NAME --exclude=$env:INPUTS_EXCLUDE_LIST -s=$env:INPUTS_SEVERITY_LEVEL -o="inspections.xml"
 ls
 
 [xml]$inspections = [xml](Get-Content -Path inspections.xml)
-$errorIssueTypes = $inspections.Report.IssueTypes.IssueType | ? { $_.Severity -eq ${INPUTS_SEVERITY_LEVEL} } | % { $_.Id }
+$errorIssueTypes = $inspections.Report.IssueTypes.IssueType | ? { $_.Severity -eq $env:INPUTS_SEVERITY_LEVEL } | % { $_.Id }
 $errors = $inspections.Report.Issues.Project.Issue | ? { $errorIssueTypes -Contains $_.TypeId }
 if ($errors.Count -ne 0 )
 {
