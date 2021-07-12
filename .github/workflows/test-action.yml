@@ -18,8 +18,9 @@ jobs:
         run: |
           dotnet new sln --name resharper-test
           mkdir myfiles
-          echo "hello" >> "**\\appsettings.Local.json
-          echo "hello" >> "**\\NuGet.Config
+          cd myfiles
+          echo "hello" >> appsettings.Local.json
+          echo "hello" >> NuGet.Config
           ls -la
 
       - name: Run ReSharper
