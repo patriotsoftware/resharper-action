@@ -3,7 +3,7 @@ dotnet tool install -g Jetbrains.Resharper.GlobalTools
 #Add check for correct solution name
 New-Item -Path 'inspections.xml' -ItemType File
 Write-Host $env:INPUTS_SEVERITY_LEVEL
-jb inspectcode $env:INPUTS_SOLUTION_NAME --exclude=$env:INPUTS_EXCLUDE_LIST -s=$env:INPUTS_SEVERITY_LEVEL -o="inspections.xml"
+jb inspectcode $env:INPUTS_SOLUTION_NAME --exclude=$env:INPUTS_EXCLUDE_LIST -s=WARNING -o="inspections.xml"
 ls
 
 [xml]$inspections = [xml](Get-Content -Path inspections.xml)
