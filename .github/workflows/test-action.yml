@@ -16,7 +16,7 @@ jobs:
 
       - name: Create Solution
         run: |
-          dotnet new sln --name resharper-test.sln
+          dotnet new sln --name resharper-test
 
       - name: Run ReSharper
         uses: ./
