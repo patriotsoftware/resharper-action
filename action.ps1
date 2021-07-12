@@ -1,7 +1,7 @@
 dotnet tool install -g Jetbrains.Resharper.GlobalTools
 
 #Add check for correct solution name
-jb inspectcode ${INPUTS_SOLUTION_NAME} --exclude=${INPUTS_EXCLUDE_LIST} -s=${INPUTS_SEVERITY_LEVEL} -o=inspections.xml
+jb inspectcode ${INPUTS_SOLUTION_NAME} --exclude=${INPUTS_EXCLUDE_LIST} -s=${INPUTS_SEVERITY_LEVEL} -output="inspections.xml"
 
 ls
 
