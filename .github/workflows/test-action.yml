@@ -17,7 +17,8 @@ jobs:
       - name: Create Solution
         run: |
           dotnet new sln --name resharper-test
-          Add-Content -Path resharper-test -Value "Test"
+          echo "hello world" >> resharper-test.sln
+          ls -la
 
       - name: Run ReSharper
         uses: ./
