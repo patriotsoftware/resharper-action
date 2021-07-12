@@ -1,0 +1,26 @@
+name: Test resharper-test-action
+on: 
+  push:
+    branches:
+      - "*"
+      - "!main"
+  workflow_dispatch:
+
+jobs:
+  test-action:
+    name: Test resharper-action
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create Solution
+        run: |
+          dotnet new sln --name resharper-test.sln
+
+      - name: Run ReSharper
+      - uses: ./
+        with:
+          solution-name: resharper-test.sln
+          exclude-list: --exclude="**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js"
+          severity-level: ERROR
