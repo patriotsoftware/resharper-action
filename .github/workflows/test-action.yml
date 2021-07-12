@@ -19,8 +19,6 @@ jobs:
           dotnet new sln --name resharper-test
           mkdir myfiles
           cd myfiles
-          echo "hello" >> appsettings.Local.json
-          echo "hello" >> NuGet.Config
           ls -la
 
       - name: Run ReSharper
@@ -28,4 +26,4 @@ jobs:
         with:
           solution-name: resharper-test.sln
           exclude-list: "**\\appsettings.Local.json;**\\NuGet.Config"
-          severity-level: suggestion
+          severity-level: WARNING
