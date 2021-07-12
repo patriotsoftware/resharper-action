@@ -19,7 +19,7 @@ jobs:
           dotnet new sln --name resharper-test.sln
 
       - name: Run ReSharper
-      - uses: ./
+        uses: ./
         with:
           solution-name: resharper-test.sln
           exclude-list: --exclude="**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js"
