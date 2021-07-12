@@ -22,5 +22,5 @@ jobs:
         uses: ./
         with:
           solution-name: resharper-test.sln
-          exclude-list: "**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js"
+          exclude-list: '**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js'
           severity-level: suggestion
