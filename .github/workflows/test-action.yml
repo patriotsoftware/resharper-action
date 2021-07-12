@@ -23,4 +23,4 @@ jobs:
         with:
           solution-name: resharper-test.sln
           exclude-list: --exclude="**\appsettings.Local.json;**\NuGet.Config;**\k6\**\*.js"
-          severity-level: ERROR
+          severity-level: suggestion
