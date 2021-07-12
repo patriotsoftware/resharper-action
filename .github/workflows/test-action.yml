@@ -17,7 +17,9 @@ jobs:
       - name: Create Solution
         run: |
           dotnet new sln --name resharper-test
-          echo "hello world" >> resharper-test.sln
+          mkdir myfiles
+          echo "hello" >> "**\\appsettings.Local.json
+          echo "hello" >> "**\\NuGet.Config
           ls -la
 
       - name: Run ReSharper
