@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Verify Repo Not Empty
         run: |
-            VAR = "${{github.event.inputs.repositoryName}}"
+            VAR="${{github.event.inputs.repositoryName}}"
             print ("${VAR}")
             if [ -z "${VAR}" ]; then
                 echo "VAR is unset or set to the empty string"
