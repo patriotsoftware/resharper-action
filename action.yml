@@ -1,0 +1,25 @@
+name: "ReSharper"
+author: DevOps
+description: Run ReSharper
+
+inputs:
+  solution-name: 
+    description: The name of your solution file
+    required: true
+  exclude-list:
+    description: Semicolon separated list of values inside double quotes
+    required: true
+  severity-level:
+    description: Severity Level
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: resharper-action
+      env:
+        INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
+        INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
+        INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
+      run: ${{ github.action_path }}/action.ps1
+      shell: pwsh

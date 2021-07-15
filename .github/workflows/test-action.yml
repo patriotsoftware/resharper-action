@@ -1,0 +1,32 @@
+name: Test resharper-test-action
+on: 
+  push:
+    branches:
+      - "*"
+      - "!main"
+  workflow_dispatch:
+    inputs:
+      repositoryName:
+        description: 'Repository Name (e.g. GitHubActions.Credentials)'
+        required: true
+jobs:
+  test-action:
+    name: Test resharper-action
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create Solution
+        run: |
+          dotnet new sln --name resharper-test
+          mkdir myfiles
+          cd myfiles
+          ls -la
+
+      - name: Run ReSharper
+        uses: ./
+        with:
+          solution-name: resharper-test.sln
+          exclude-list: "**\\appsettings.Local.json;**\\NuGet.Config"
+          severity-level: WARNING
