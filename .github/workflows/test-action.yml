@@ -1,4 +1,4 @@
-name: Test resharper-test-action
+name: Test resharper-action
 on: 
   push:
     branches:
