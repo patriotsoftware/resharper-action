@@ -5,10 +5,7 @@ on:
       - "*"
       - "!main"
   workflow_dispatch:
-    inputs:
-      repositoryName:
-        description: 'Repository Name (e.g. GitHubActions.Credentials)'
-        required: true
+  
 jobs:
   test-action:
     name: Test resharper-action
