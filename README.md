@@ -12,5 +12,7 @@ exclude-list:
   These files will be ignored in the scan.
 severity-level:
   Severity Level. What should fail the inspections?
+file-type:
+  Default is xml. Options (xml or json)
 ```
 
