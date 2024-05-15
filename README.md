@@ -13,6 +13,6 @@ exclude-list:
 severity-level:
   Severity Level. What should fail the inspections?
 file-type:
-  Default is XML. Options (XML or JSON)
+  Default is xml. Options (xml or json)
 ```
 
