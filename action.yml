@@ -12,14 +12,26 @@ inputs:
   severity-level:
     description: Severity Level
     required: true
+  file-type:
+    description: XML or JSON
+    default: 'XML'
+    required: false
 
 runs:
   using: "composite"
   steps:
-    - id: resharper-action
+    - if: ${{ inputs.file-type == 'XML' }}
       env:
         INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
         INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
         INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
-      run: ${{ github.action_path }}/action.ps1
+      run: ${{ github.action_path }}/action-xml.ps1
+      shell: pwsh
+
+    - if: ${{ inputs.file-type == 'JSON' }}
+      env:
+        INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
+        INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
+        INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
+      run: ${{ github.action_path }}/action-json.ps1
       shell: pwsh
