@@ -21,9 +21,17 @@ jobs:
           cd myfiles
           ls -la
 
-      - name: Run ReSharper
+      - name: Run ReSharper XML (default)
         uses: ./
         with:
           solution-name: resharper-test.sln
           exclude-list: "**\\appsettings.Local.json;**\\NuGet.Config"
+          severity-level: WARNING
+
+      - name: Run ReSharper JSON
+        uses: ./
+        with:
+          solution-name: resharper-test.sln
+          exclude-list: "**\\appsettings.Local.json;**\\NuGet.Config"
+          file-type: json
           severity-level: WARNING

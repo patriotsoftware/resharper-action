@@ -12,6 +12,10 @@ inputs:
   severity-level:
     description: Severity Level
     required: true
+  file-type:
+    description: xml or json
+    default: 'xml'
+    required: false
 
 runs:
   using: "composite"
@@ -21,5 +25,5 @@ runs:
         INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
         INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
         INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
-      run: ${{ github.action_path }}/action.ps1
+      run: ${{ github.action_path }}/action-${{ inputs.file-type }}.ps1
       shell: pwsh
