@@ -3,7 +3,7 @@ author: DevOps
 description: Run ReSharper
 
 inputs:
-  solution-name: 
+  solution-name:
     description: The name of your solution file
     required: true
   exclude-list:
@@ -16,14 +16,20 @@ inputs:
     description: xml or json
     default: 'xml'
     required: false
+  tool-version:
+    description: The version of the tool to use
+    default: '2024.3.6'
+    required: false
 
 runs:
   using: "composite"
   steps:
     - id: resharper-action
       env:
-        INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
-        INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
-        INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
+        INPUTS_SOLUTION_NAME: '${{ inputs.solution-name }}'
+        INPUTS_EXCLUDE_LIST: '${{ inputs.exclude-list }}'
+        INPUTS_SEVERITY_LEVEL: '${{ inputs.severity-level }}'
+        INPUTS_FILE_TYPE: '${{ inputs.file-type }}'
+        INPUTS_TOOL_VERSION: '${{ inputs.tool-version }}'
       run: ${{ github.action_path }}/action-${{ inputs.file-type }}.ps1
       shell: pwsh
