@@ -25,11 +25,11 @@ runs:
   using: "composite"
   steps:
     - id: resharper-action
-      env:
-        INPUTS_SOLUTION_NAME: '${{ inputs.solution-name }}'
-        INPUTS_EXCLUDE_LIST: '${{ inputs.exclude-list }}'
-        INPUTS_SEVERITY_LEVEL: '${{ inputs.severity-level }}'
-        INPUTS_FILE_TYPE: '${{ inputs.file-type }}'
-        INPUTS_TOOL_VERSION: '${{ inputs.tool-version }}'
-      run: ${{ github.action_path }}/action-${{ inputs.file-type }}.ps1
-      shell: pwsh
+      uses: JetBrains/ReSharper-InspectCode@v0.3
+      with:
+        solution: '${{ inputs.solution-name }}'
+        output: 'inspections.${{ inputs.file-type }}'
+        format: '${{ inputs.file-type }}'
+        # exclude: '${{ inputs.exclude-list }}'
+        severity: '${{ inputs.severity-level }}'
+        tool-version: '${{ inputs.tool-version }}'
