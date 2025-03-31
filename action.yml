@@ -25,11 +25,16 @@ runs:
   using: "composite"
   steps:
     - id: resharper-action
-      uses: JetBrains/ReSharper-InspectCode@v0.3
+      uses: JetBrains/ReSharper-InspectCode@v0.8
       with:
-        solution: '${{ inputs.solution-name }}'
-        output: 'inspections.${{ inputs.file-type }}'
         format: '${{ inputs.file-type }}'
-        # exclude: '${{ inputs.exclude-list }}'
-        severity: '${{ inputs.severity-level }}'
+        output:  'inspections.${{ inputs.file-type }}'
+        severity: 'ERROR'
+        solution: '${{ inputs.solution-name }}'
         tool-version: '${{ inputs.tool-version }}'
+        # exclude: '${{ inputs.exclude-list }}'
+    - id: upload-results
+      uses: actions/upload-artifact@v4
+      with:
+        path: 'inspections.${{ inputs.file-type }}'
+        if-no-files-found: ignore
