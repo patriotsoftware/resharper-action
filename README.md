@@ -1,18 +1,12 @@
-# resharper-action
-A GitHub Action for running ReSharper. We recommend using patriotsoftware/resharper-action@v1 to get the latest changes. If new features require breaking changes, we will release them to @v2. You can also use a full semantic version tag.
+# ⚠️ DEPRECATED: resharper-action
 
-# Example Usage
-```- uses: patriotsoftware/resharper-action@v1```
-# Inputs
-```
-solution-name:
-  This is the name of the solution file.
-exclude-list:
-  Semicolon separated list of values inside double quotes.
-  These files will be ignored in the scan.
-severity-level:
-  Severity Level. What should fail the inspections?
-file-type:
-  Default is xml. Options (xml or json)
-```
+**This action is deprecated and archived. Remove it from your workflows.** It will be deleted without further notice.
 
+Until v1.2.0 this action passed `-s="ERROR"` to `jb inspectcode`. `-s` is `--settings`, not severity, so ReSharper aborted without inspecting anything and the action always passed.
+
+`v1` is now a thin shim over [JetBrains/ReSharper-InspectCode](https://github.com/JetBrains/ReSharper-InspectCode). It emits a deprecation warning and runs inspections for information only; it never fails the build. That keeps existing callers working while ReSharper is removed from the runner images (DVO-1443).
+
+## Migrating
+
+- **You don't need ReSharper inspections:** delete the `uses: patriotsoftware/resharper-action@v1` step (and its job, if that's all the job does).
+- **You do want them:** call [JetBrains/ReSharper-InspectCode](https://github.com/JetBrains/ReSharper-InspectCode) directly.

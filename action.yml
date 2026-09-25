@@ -1,29 +1,57 @@
 name: "ReSharper"
 author: DevOps
-description: Run ReSharper
+description: "DEPRECATED - Remove this step from your workflow. Thin shim over JetBrains/ReSharper-InspectCode."
 
 inputs:
-  solution-name: 
+  solution-name:
     description: The name of your solution file
     required: true
+    deprecationMessage: "patriotsoftware/resharper-action is DEPRECATED and archived. Delete the 'uses: patriotsoftware/resharper-action' step from your workflow."
   exclude-list:
     description: Semicolon separated list of values inside double quotes
     required: true
+    deprecationMessage: "patriotsoftware/resharper-action is DEPRECATED and archived. Delete the 'uses: patriotsoftware/resharper-action' step from your workflow."
   severity-level:
     description: Severity Level
     required: true
+    deprecationMessage: "patriotsoftware/resharper-action is DEPRECATED and archived. Delete the 'uses: patriotsoftware/resharper-action' step from your workflow."
   file-type:
-    description: xml or json
+    description: Ignored; the report is always SARIF
     default: 'xml'
     required: false
+    deprecationMessage: "patriotsoftware/resharper-action is DEPRECATED and archived. Delete the 'uses: patriotsoftware/resharper-action' step from your workflow."
 
 runs:
   using: "composite"
   steps:
-    - id: resharper-action
+    - name: "⚠️ DEPRECATED: patriotsoftware/resharper-action"
+      shell: bash
+      run: |
+        msg="patriotsoftware/resharper-action is DEPRECATED and archived, and will stop working without further notice. It had been passing an invalid flag and silently inspecting nothing, so removing it loses nothing. Delete the 'uses: patriotsoftware/resharper-action' step (and its job, if that's all it does) from $GITHUB_WORKFLOW_REF. See DVO-1443."
+        echo "::warning title=⚠️ DEPRECATED ACTION - patriotsoftware/resharper-action::$msg"
+        {
+          echo "# ⚠️⚠️⚠️ DEPRECATED ACTION ⚠️⚠️⚠️"
+          echo
+          echo "## \`patriotsoftware/resharper-action\` is deprecated and archived"
+          echo
+          echo "$msg"
+          echo
+          echo "> [!CAUTION]"
+          echo "> **Remove this step.** It will be deleted without further notice."
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    # Callers never got a working gate from this action, so it must not start failing
+    # their builds now: inspection results are informational only.
+    - name: Run ReSharper InspectCode (informational only)
+      uses: JetBrains/ReSharper-InspectCode@96fdc3456bf2908dd877213a2644ccb9e3010785 # v0.14
+      continue-on-error: true
       env:
-        INPUTS_SOLUTION_NAME: ${{ inputs.solution-name }}
-        INPUTS_EXCLUDE_LIST: ${{ inputs.exclude-list }}
-        INPUTS_SEVERITY_LEVEL: ${{ inputs.severity-level }}
-      run: ${{ github.action_path }}/action-${{ inputs.file-type }}.ps1
-      shell: pwsh
+        # setup-dotnet's Linux default (/usr/share/dotnet) is root-owned on our self-hosted runners
+        DOTNET_INSTALL_DIR: ${{ runner.temp }}/dotnet
+      with:
+        solution: ${{ inputs.solution-name }}
+        exclude: ${{ inputs.exclude-list }}
+        sEverity: ${{ inputs.severity-level }}
+        output: ${{ runner.temp }}/resharper-inspections.sarif.json
+        upload-sarif: 'false'
+        tool-version: '2026.2.2'
